@@ -1,0 +1,66 @@
+extends layout
+
+block content
+	.container
+		h1= title
+
+		.form-group
+			label(for='') Type of Match
+			select.form-control(id="gameType", name="gameType")
+				option(value='matchType') Choose Match
+				option(value='1v1') 1 vs 1
+				option(value='2v2') 2 vs 2
+		
+		form(id="1v1", style="display: none;")
+			.form-group
+				label(for='') Player 1
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+			br
+			label Versus
+			br
+			br
+
+			.form-group
+				label(for='') Player 2
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+
+		form(id="2v2", style="display: none;")
+			.form-group
+				label(for='') Player 1
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+			br
+			.form-group
+				label(for='') Player 2
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+
+			label Versus
+			br
+			br
+			
+			.form-group
+				label(for='') Player 3
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+			br
+			.form-group
+				label(for='') Player 4
+				select.form-control
+					each user, i in userlist
+						option=user.fname
+
+
+
+
+
+
+
+

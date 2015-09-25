@@ -1,0 +1,115 @@
+@navigation-font-color: #fff;
+@header-background-color: #3786ae;
+
+@slide-menu-background-color: #3b3b3b;
+@slide-menu-border-top: 1px solid #484848;
+@slide-menu-border-bottom: 1px solid #2e2e2e;
+@slide-menu-closed: 0px; /*works with flex */
+@slide-menu-opened: 500px; /*words with flex */
+@slide-menu-transition: width 1000ms linear; /*words with flex */
+
+@page-container-content-size: 9; /*flex value */
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+  
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#page-container {
+  display: flex;
+  flex-flow: row;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  
+  .content {
+    flex-grow: @page-container-content-size;
+    
+    header {
+      padding: 5px;
+      width: 100%;
+      background-color: @header-background-color;
+      
+      .menu {
+        color: @navigation-font-color;
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+
+    .container {
+      padding: 15px;
+      margin: 0;
+    }
+  }
+}
+
+.close-menu {
+  display: none;
+}
+
+#slide-menu {
+  width: @slide-menu-closed;
+  transition: @slide-menu-transition;
+  background-color: @slide-menu-background-color;
+  
+  a {
+    display: none;
+    -webkit-animation: fadeOut 2s;
+    animation: fadeOut 2s;
+    color: @navigation-font-color;
+    padding: 5px;
+    text-decoration: none;
+    
+    &:first-child {
+      border-top: none;  
+    }
+  }
+  
+  /* When Targeted */
+  &:target {
+    width: @slide-menu-opened;
+      
+    a {
+      display: block;
+      border-top: @slide-menu-border-top;
+      border-bottom: @slide-menu-border-bottom;
+      visibility: visible;
+      -webkit-animation: fadeIn 2s;
+      animation: fadeIn 2s;
+    }
+    
+    + .content {
+      .open-menu {
+        display: none;
+      }
+      
+      .close-menu {
+        display: block;
+      }
+    }
+  }
+}

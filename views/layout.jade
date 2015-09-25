@@ -1,0 +1,16 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/app.css')
+	body
+		block header
+			nav.navbar.navbar-inverse(style='border-radius: 0;')
+				.container-fluid
+					.navbar-header
+						a.navbar-brand(href='/') Logi Foosball
+		block content
+		block footer
+
+		script(src='/javascripts/jquery.js')
+		script(src='/javascripts/gameType.js')

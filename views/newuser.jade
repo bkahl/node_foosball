@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	.container
+		h1= title
+		form(name="adduser",method="post",action="/adduser")
+			.form-group
+				label(for='fname') First Name
+				input#exampleInputFirstName.form-control(type='text', placeholder='First Name', name='fname')
+			.form-group
+				label(for='lname') Last Name
+				input#exampleInputLastName.form-control(type='text', placeholder='Last Name', name='lname')
+			.form-group
+				label(for='email') Email
+				input#exampleInputEmail.form-control(type='email', placeholder='Email', name='email')
+			button.btn.btn-default(type='submit') Submit
