@@ -53,6 +53,44 @@ router.get('/newgame', function(req, res) {
     });
 });
 
+/* POST document new game */
+// router.post('/newgame1v1', function(req, res) {
+
+//     // Set our internal DB variable
+//     var db = req.db;
+
+//     // Get our form values. These rely on the "name" attributes
+//     var player1FullName = req.body.p1name;
+//     var player1Score = req.body.p1score;
+//     var player2FullName = req.body.p2name;
+//     var player2Score = req.body.p2score;
+
+//     // Set our collection
+//     var collection = db.get('usercollection');
+
+//     collection.update(
+//         { 'fullname' : player1FullName }, 
+//         { '$pushAll' : {games : [1,2,3]} 
+//     );
+
+//     // Submit to the DB
+//     collection.insert({
+//         "fullname" : userFullName,
+//         "fname" : userFirstName,
+//         "lname" : userLastName,
+//         "email" : userEmail
+//     }, function (err, doc) {
+//         if (err) {
+//             // If it failed, return error
+//             res.send("There was a problem updating the game to the database.");
+//         }
+//         else {
+//             // And forward to success page
+//             res.redirect("/");
+//         }
+//     });
+// });
+
 /* POST to Add User Service */
 router.post('/adduser', function(req, res) {
 

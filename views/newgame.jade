@@ -11,35 +11,42 @@ block content
 				option(value='1v1') 1 vs 1
 				option(value='2v2') 2 vs 2
 		
-		form(id="1v1", style="display: none;")
+		form(id="1v1", name="newgame1v1", method="post", style="display: none;")
 			.form-group
 				label(for='') Player 1
-				select.form-control
+				select.form-control(name='p1name')
+					option --
 					each user, i in userlist
-						option=user.fname
-			br
-			label Versus
-			br
-			br
+						option=user.fullname
+			.form-group
+				input#exampleInputFirstName.form-control(type='text', placeholder='Player 1 Score', name='p1score')
+
+			.form-group
+				label(for='') Versus
 
 			.form-group
 				label(for='') Player 2
-				select.form-control
+				select.form-control(name='p2name')
+					option --
 					each user, i in userlist
-						option=user.fname
+						option=user.fullname
+			.form-group
+				input#exampleInputFirstName.form-control(type='text', placeholder='Player 2 Score', name='p2score')
+
+			button.btn.btn-primary(type='submit') Submit
 
 		form(id="2v2", style="display: none;")
 			.form-group
 				label(for='') Player 1
 				select.form-control
 					each user, i in userlist
-						option=user.fname
+						option=user.fullname
 			br
 			.form-group
 				label(for='') Player 2
 				select.form-control
 					each user, i in userlist
-						option=user.fname
+						option=user.fullname
 
 			label Versus
 			br
@@ -49,13 +56,13 @@ block content
 				label(for='') Player 3
 				select.form-control
 					each user, i in userlist
-						option=user.fname
+						option=user.fullname
 			br
 			.form-group
 				label(for='') Player 4
 				select.form-control
 					each user, i in userlist
-						option=user.fname
+						option=user.fullname
 
 
 
