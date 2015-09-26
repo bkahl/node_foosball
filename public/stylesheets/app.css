@@ -6910,7 +6910,15 @@ body {
   list-style: none;
   float: left;
   margin: 0;
+  padding-left: 30px;
 }
 .glossary ul:first-child {
   padding-left: 0;
+}
+@media screen and (max-width: 400px) {
+  .glossary ul {
+    padding: 0;
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
 }

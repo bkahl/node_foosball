@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectID;
+var date = new Date();
 
 var movies = require('../movies.json');
 
@@ -89,8 +90,8 @@ router.post('/newgame1v1', function(req, res) {
     var db = req.db;
 
     var players = [
-        {fullname: req.body.p1name, game: { gameType: 'Singles', position: '*', side: 'yellow', partner: '*', win: (parseInt(req.body.p1score,10) > parseInt(req.body.p2score,10)), loss: (parseInt(req.body.p1score,10) < parseInt(req.body.p2score,10)),  date: new Date(), score: parseInt(req.body.p1score,10), opponentScore: parseInt(req.body.p2score,10), opponentNames: req.body.p2name } },
-        {fullname: req.body.p2name, game: { gameType: 'Singles', position: '*', side: 'black', partner: '*', win: (parseInt(req.body.p2score,10) > parseInt(req.body.p1score,10)), loss: (parseInt(req.body.p2score,10) < parseInt(req.body.p1score,10)),  date: new Date(), score: parseInt(req.body.p2score,10), opponentScore: parseInt(req.body.p1score,10), opponentNames: req.body.p1name } }
+        {fullname: req.body.p1name, game: { gameType: 'Singles', position: '*', side: 'yellow', partner: '*', win: (parseInt(req.body.p1score,10) > parseInt(req.body.p2score,10)), loss: (parseInt(req.body.p1score,10) < parseInt(req.body.p2score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.p1score,10), opponentScore: parseInt(req.body.p2score,10), opponentNames: req.body.p2name } },
+        {fullname: req.body.p2name, game: { gameType: 'Singles', position: '*', side: 'black', partner: '*', win: (parseInt(req.body.p2score,10) > parseInt(req.body.p1score,10)), loss: (parseInt(req.body.p2score,10) < parseInt(req.body.p1score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.p2score,10), opponentScore: parseInt(req.body.p1score,10), opponentNames: req.body.p1name } }
     ];
 
     // Set our collection
@@ -127,10 +128,10 @@ router.post('/newgame2v2', function(req, res) {
     var db = req.db;
 
     var players = [
-        {fullname: req.body.p1name, game: { gameType: 'Doubles', position: 'defense', side: 'yellow', partner: req.body.p2name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: new Date(), score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
-        {fullname: req.body.p2name, game: { gameType: 'Doubles', position: 'offense', side: 'yellow', partner: req.body.p1name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: new Date(), score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
-        {fullname: req.body.p3name, game: { gameType: 'Doubles', position: 'defense', side: 'black', partner: req.body.p4name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: new Date(), score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } },
-        {fullname: req.body.p4name, game: { gameType: 'Doubles', position: 'offense', side: 'black', partner: req.body.p3name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: new Date(), score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } }
+        {fullname: req.body.p1name, game: { gameType: 'Doubles', position: 'defense', side: 'yellow', partner: req.body.p2name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
+        {fullname: req.body.p2name, game: { gameType: 'Doubles', position: 'offense', side: 'yellow', partner: req.body.p1name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
+        {fullname: req.body.p3name, game: { gameType: 'Doubles', position: 'defense', side: 'black', partner: req.body.p4name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } },
+        {fullname: req.body.p4name, game: { gameType: 'Doubles', position: 'offense', side: 'black', partner: req.body.p3name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(), score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } }
     ];
 
     // Set our collection
@@ -182,7 +183,7 @@ router.post('/adduser', function(req, res) {
         "fname" : userFirstName,
         "lname" : userLastName,
         "email" : userEmail,
-        "joined": new Date(),
+        "joined": date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(),
         "goalsFor" : 0,
         "goalsAgainst" : 0,
         "wins" : 0,
