@@ -2,4 +2,46 @@ extends layout
 
 block content
 	.container
-		h1= title
+		h1=title
+		table.table.table-striped
+			thead
+				tr
+					th #
+					th Player
+					th GP
+					th S
+					th D
+					th YS
+					th BS
+					th GPonO
+					th GPonD
+					th W
+					th L
+					th GF
+					th GA
+					th DIFF
+					
+			tbody
+				each user, i in userlist
+					tr
+						td=i+1
+						td=user.fullname
+						td=user.gamesPlayed
+						td=user.singleMatches
+						td=user.doubleMatches
+						td=user.yellowSide
+						td=user.blackSide
+						td=user.onOffense
+						td=user.onDefense
+						td=user.wins
+						td=user.losses
+						td=user.goalsFor
+						td=user.goalsAgainst
+						if ((user.goalsFor-user.goalsAgainst) > 0)
+							td.positive
+								span +
+								span=(user.goalsFor-user.goalsAgainst)
+						else if ((user.goalsFor-user.goalsAgainst) == 0)
+							td=span=(user.goalsFor-user.goalsAgainst)
+						else 
+							td.negative=(user.goalsFor-user.goalsAgainst)

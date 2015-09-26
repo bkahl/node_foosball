@@ -6,63 +6,70 @@ block content
 
 		.form-group
 			label(for='') Type of Match
-			select.form-control(id="gameType", name="gameType")
+			select.form-control(id="gameType")
 				option(value='matchType') Choose Match
-				option(value='1v1') 1 vs 1
-				option(value='2v2') 2 vs 2
+				option(value='singles') Singles
+				option(value='doubles') Doubles
 		
-		form(id="1v1", name="newgame1v1", method="post", style="display: none;")
+		form(id="1v1", name="newgame1v1", method="post",  action="/newgame1v1", style="display: none;")
 			.form-group
-				label(for='') Player 1
+				label(for='') Yellow Team
 				select.form-control(name='p1name')
 					option --
 					each user, i in userlist
 						option=user.fullname
 			.form-group
-				input#exampleInputFirstName.form-control(type='text', placeholder='Player 1 Score', name='p1score')
+				input.form-control(type='text', placeholder='Yellow Team Score', name='p1score')
 
 			.form-group
 				label(for='') Versus
 
 			.form-group
-				label(for='') Player 2
+				label(for='') Black Team
 				select.form-control(name='p2name')
 					option --
 					each user, i in userlist
 						option=user.fullname
 			.form-group
-				input#exampleInputFirstName.form-control(type='text', placeholder='Player 2 Score', name='p2score')
+				input.form-control(type='text', placeholder='Black Team Score', name='p2score')
 
 			button.btn.btn-primary(type='submit') Submit
 
-		form(id="2v2", style="display: none;")
+		form(id="2v2", name="newgame2v2", method="post",  action="/newgame2v2", style="display: none;")
 			.form-group
-				label(for='') Player 1
-				select.form-control
+				label(for='') Yellow Team - Defensive Player
+				select.form-control(name='p1name')
+					option --
 					each user, i in userlist
 						option=user.fullname
-			br
 			.form-group
-				label(for='') Player 2
-				select.form-control
+				label(for='') Yellow Team - Offensive Player
+				select.form-control(name='p2name')
+					option --
 					each user, i in userlist
 						option=user.fullname
+			.form-group
+				input.form-control(type='text', placeholder='Yellow Team Score', name='team1score')
 
-			label Versus
-			br
-			br
+			.form-group
+				label(for='') Versus
 			
 			.form-group
-				label(for='') Player 3
-				select.form-control
+				label(for='') Black Team - Defensive Player
+				select.form-control(name='p3name')
+					option --
 					each user, i in userlist
 						option=user.fullname
-			br
 			.form-group
-				label(for='') Player 4
-				select.form-control
+				label(for='') Black Team - Offensive Player
+				select.form-control(name='p4name')
+					option --
 					each user, i in userlist
 						option=user.fullname
+			.form-group
+				input.form-control(type='text', placeholder='Black Team Score', name='team2score')
+
+			button.btn.btn-primary(type='submit') Submit
 
 
 

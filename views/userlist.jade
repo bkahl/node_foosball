@@ -10,10 +10,16 @@ block content
 					th First Name
 					th Last Name
 					th Email
+					th Date Joined
 			tbody
 				each user, i in userlist
 					tr
 						td=i+1
 						td=user.fname
 						td=user.lname
-						td=user.email
+						td
+							a(href='mailto:'+user.email+'?Subject=Want%20to%20Play%20a%20Foosball%20Game?')=user.email
+						td=user.joined
+
+		button.btn.btn-primary(type='button') 
+			a(href='/newuser') Add New Player
