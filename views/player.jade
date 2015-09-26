@@ -1,0 +1,72 @@
+extends layout
+
+block content
+	.container
+		h3=title
+		table.table.table-striped
+			thead
+				tr
+					th Game
+					th GT
+					th POS
+					th SD
+					th PRTN
+					th W/L
+					th DP
+					th S
+					th OS
+					th O
+					
+			tbody
+				each game, i in player.games
+					tr
+						td=i+1
+						td=game.gameType
+						td=game.position
+						td=game.side
+						td=game.partner
+						if(game.win)
+							td W
+						else
+							td L
+						td=game.date
+						td=game.score
+						td=game.opponentScore
+						td=game.opponentNames
+
+		div.glossary
+			ul
+				li 
+					b GT: 
+					span Game Type
+				li 
+					b POS: 
+					span Position
+				li 
+					b SD: 
+					span Side
+			ul
+				li 
+					b PRTN: 
+					span Partner
+				li 
+					b W/L: 
+					span Win or Loss
+				li 
+					b DP: 
+					span Date Played
+			ul
+				li 
+					b S: 
+					span Score
+				li 
+					b OS: 
+					span Opponent Score
+				li 
+					b O: 
+					span Opponents
+
+		br
+
+		button.btn.btn-primary(type='button')
+			a(href='/Standings') Back to Standings

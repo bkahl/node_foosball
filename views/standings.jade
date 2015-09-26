@@ -2,15 +2,15 @@ extends layout
 
 block content
 	.container
-		h1=title
+		h3=title
 		table.table.table-striped
 			thead
 				tr
 					th #
 					th Player
 					th GP
-					th S
-					th D
+					th SM
+					th DM
 					th YS
 					th BS
 					th GPonO
@@ -25,7 +25,8 @@ block content
 				each user, i in userlist
 					tr
 						td=i+1
-						td=user.fullname
+						td
+							a(href='/player/'+user._id)=user.fullname
 						td=user.gamesPlayed
 						td=user.singleMatches
 						td=user.doubleMatches
@@ -45,3 +46,45 @@ block content
 							td=span=(user.goalsFor-user.goalsAgainst)
 						else 
 							td.negative=(user.goalsFor-user.goalsAgainst)
+
+		div.glossary
+			ul
+				li 
+					b GP: 
+					span Games Played
+				li 
+					b SM: 
+					span Single Matches
+				li 
+					b DM: 
+					span Double Matches
+			ul
+				li 
+					b YS: 
+					span Yellow Side
+				li 
+					b BS: 
+					span Black Side
+				li 
+					b GPonO: 
+					span Games Played on Offense
+			ul
+				li 
+					b GPonD: 
+					span Games Played on Defense
+				li 
+					b W: 
+					span Wins
+				li 
+					b L: 
+					span Losses
+			ul
+				li 
+					b GF: 
+					span Goals For
+				li 
+					b GA: 
+					span Goals Against
+				li 
+					b DIFF: 
+					span Goal Differential

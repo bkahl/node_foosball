@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongodb').ObjectID;
 
 var movies = require('../movies.json');
 
@@ -55,7 +56,19 @@ router.get('/standings', function(req, res) {
             userlist : users
         });
     });
-    //res.render('standings', { title: 'Standings' });
+});
+
+router.get('/player/:name', function(req, res) {
+    var fullname = req.params.name;
+    var db = req.db;
+    var collection = db.get('usercollection');
+
+    collection.find( { _id : ObjectId(req.params.name) } ).on('success', function (player) { 
+        res.render('player', { 
+            title: player[0].fullname+' ('+player[0].wins+'-'+player[0].losses+')',
+            player: player[0]
+        });      
+    });
 });
 
 router.get('/newgame', function(req, res) {
@@ -124,7 +137,6 @@ router.post('/newgame2v2', function(req, res) {
     var collection = db.get('usercollection');
 
     for(i=0;i < players.length; i++){
-        console.log(collection.find())
         collection.update(
             { fullname : players[i].fullname }, 
             { 
