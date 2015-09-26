@@ -9,17 +9,17 @@ block content
 					th #
 					th Player
 					th GP
+					th W
+					th L
+					th GF
+					th GA
+					th DIFF
 					th SM
 					th DM
 					th YS
 					th BS
 					th GPonO
 					th GPonD
-					th W
-					th L
-					th GF
-					th GA
-					th DIFF
 					
 			tbody
 				each user, i in userlist
@@ -28,12 +28,6 @@ block content
 						td
 							a(href='/player/'+user._id)=user.fullname
 						td=user.gamesPlayed
-						td=user.singleMatches
-						td=user.doubleMatches
-						td=user.yellowSide
-						td=user.blackSide
-						td=user.onOffense
-						td=user.onDefense
 						td=user.wins
 						td=user.losses
 						td=user.goalsFor
@@ -46,7 +40,12 @@ block content
 							td=span=(user.goalsFor-user.goalsAgainst)
 						else 
 							td.negative=(user.goalsFor-user.goalsAgainst)
-
+						td=user.singleMatches
+						td=user.doubleMatches
+						td=user.yellowSide
+						td=user.blackSide
+						td=user.onOffense
+						td=user.onDefense
 		div.glossary
 			ul
 				li 
