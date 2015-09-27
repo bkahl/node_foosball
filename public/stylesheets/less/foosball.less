@@ -23,6 +23,16 @@
 }
 
 .btn-primary {
+	background-color: #8aba40;
+	border: none;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: #679127 !important;
+		border: none;
+	}
+
 	a {
 		color: #fff;
 
@@ -43,30 +53,13 @@
 }
 
 .glossary {
-	width: auto;
-	overflow: hidden;
-	border: 1px solid;
-	padding: 10px;
-
 	ul {
 		list-style: none;
-		float: left;
-		margin: 0;
-		padding-left: 30px;
-
-		&:first-child {
-			padding-left: 0;
-		}
+		padding: 0;
 	}
 
 }
 
 @media screen and (max-width: 400px) {
-    .glossary {
-    	ul {
-    		padding: 0;
-    		padding-left: 0;
-    		padding-bottom: 10px;
-    	}
-    }
+
 }

@@ -26,7 +26,10 @@ block content
 					tr
 						td=i+1
 						td
-							a(href='/player/'+user._id)=user.fullname
+							if(user.games)
+								a(href='/player/'+user._id)=user.fullname
+							else
+								span=user.fullname
 						td=user.gamesPlayed
 						td=user.wins
 						td=user.losses
@@ -57,6 +60,7 @@ block content
 				li 
 					b DM: 
 					span Double Matches
+		div.glossary
 			ul
 				li 
 					b YS: 
@@ -67,16 +71,18 @@ block content
 				li 
 					b GPonO: 
 					span Games Played on Offense
+		div.glossary
 			ul
-				li 
+				li
 					b GPonD: 
 					span Games Played on Defense
-				li 
+				li
 					b W: 
 					span Wins
-				li 
+				li
 					b L: 
 					span Losses
+		div.glossary
 			ul
 				li 
 					b GF: 

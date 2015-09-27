@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 
 // New Code
 var mongo = require('mongodb');
@@ -14,6 +15,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// point to favicon
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
