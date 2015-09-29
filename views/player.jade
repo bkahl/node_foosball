@@ -15,6 +15,7 @@ block content
 					th S
 					th OS
 					th O
+					th RG
 					
 			tbody
 				if(player.games)
@@ -34,6 +35,9 @@ block content
 								td=game.opponentScore
 								td=game.opponentNames
 								td
+									button.btn.btn-danger(type='button') 
+										a(href='/removegame/player/'+userID+'/'+i) Delete
+
 
 		div.glossary
 			ul

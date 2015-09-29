@@ -6905,6 +6905,15 @@ body {
   color: #fff;
   text-decoration: none;
 }
+.btn-danger a {
+  color: #fff;
+}
+.btn-danger a:hover,
+.btn-danger a:active,
+.btn-danger a:focus {
+  color: #fff;
+  text-decoration: none;
+}
 .positive {
   color: green;
 }

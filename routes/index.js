@@ -79,6 +79,7 @@ router.get('/player/:id', function(req, res) {
     var collection = db.get('usercollection');
 
     collection.find( { _id : ObjectId(userID) } ).on('success', function (player) { 
+        console.log('player',player[0]);
         res.render('player', { 
             title: player[0].fullname+' ('+player[0].wins+'-'+player[0].losses+')',
             player: player[0],
@@ -245,24 +246,71 @@ router.get('/removegame/:page/:id/:gameindex', function(req, res) {
     var userID = req.params.id;
     var page = req.params.page;
     var gameindex = req.params.gameindex;
-    console.log(gameindex);
-    console.log('hey');
-    var gamesID = "games.0";
-
-    //ar games = 'games'+gameindex;
-
-    console.log(page, userID, parseInt(gameindex,10));
-
-    var test = 'games.0';
 
     // Set our collection
     var collection = db.get('usercollection');
 
-    if(gameindex === 0) console.log(0); collection.update({'_id': ObjectId(userID)},{ $unset: {'games.0' : 1} });
-    if(gameindex === 1) console.log(1); ///collection.update({'_id': ObjectId(userID)},{ $unset: {'games.1' : 1} });
-    if(gameindex === 2) console.log(2); ////.update({'_id': ObjectId(userID)},{ $unset: {'games.2' : 1} });
+    var removedGame,
+        removedGameObj = {},
+        updatedUserObj = {};
 
-    collection.update({'_id': ObjectId(userID)},{ $pull: {'games': null} });  
+    collection.find({'_id': ObjectId(userID)}).on('success', function (player) { 
+        console.log('player',player[0]);  
+        removedGame = player[0].games.splice(gameindex,1); 
+        console.log('removedGame',removedGame[0]);    
+
+        removedGameObj.gameType = removedGame[0].gameType;
+        removedGameObj.position = removedGame[0].position;
+        removedGameObj.side = removedGame[0].side;
+        removedGameObj.win = removedGame[0].win;
+        removedGameObj.loss = removedGame[0].loss;
+        removedGameObj.score = removedGame[0].score;
+        removedGameObj.opponentScore = removedGame[0].opponentScore;
+
+        updatedUserObj.fullname = player[0].fullname;
+        updatedUserObj.fname = player[0].fname;
+        updatedUserObj.lname = player[0].lname;
+        updatedUserObj.email = player[0].email;
+        updatedUserObj.joined = player[0].joined;
+        updatedUserObj.goalsFor = player[0].goalsFor-removedGameObj.score;
+        updatedUserObj.goalsAgainst = player[0].goalsAgainst-removedGameObj.opponentScore;
+        updatedUserObj.wins = (removedGameObj.win) ? player[0].wins-1 : player[0].wins-0;
+        updatedUserObj.losses = (removedGameObj.loss) ? player[0].losses-1 : player[0].losses-0;
+        updatedUserObj.gamesPlayed = player[0].gamesPlayed-1;
+        updatedUserObj.onDefense = (removedGameObj.position === '*' || removedGameObj.position === 'offense') ? player[0].onDefense-0 : player[0].onDefense-1;
+        updatedUserObj.onOffense = (removedGameObj.position === '*' || removedGameObj.position === 'defense') ? player[0].onOffense-0 : player[0].onOffense-1;
+        updatedUserObj.blackSide = (removedGameObj.side === 'black') ? player[0].blackSide-1: player[0].blackSide-0;
+        updatedUserObj.yellowSide = (removedGameObj.side === 'yellow') ? player[0].yellowSide-1: player[0].yellowSide-0;
+        updatedUserObj.doubleMatches = (removedGameObj.gameType === 'Doubles') ? player[0].doubleMatches-1 : player[0].doubleMatches-0;
+        updatedUserObj.singleMatches = (removedGameObj.gameType === 'Singles') ? player[0].singleMatches-1 : player[0].singleMatches-0;
+        updatedUserObj.games = player[0].games;
+
+        console.log('removedGameObj',removedGameObj);
+        console.log('updatedUserObj',updatedUserObj);
+
+        collection.update(
+            {'_id': ObjectId(userID)},
+            {
+                fullname: updatedUserObj.fullname,
+                fname: updatedUserObj.fname,
+                lname: updatedUserObj.lname,
+                email: updatedUserObj.email,
+                joined: updatedUserObj.joined,
+                goalsFor: updatedUserObj.goalsFor,
+                goalsAgainst: updatedUserObj.goalsAgainst,
+                wins: updatedUserObj.wins,
+                losses: updatedUserObj.losses,
+                gamesPlayed: updatedUserObj.gamesPlayed,
+                onDefense: updatedUserObj.onDefense,
+                onOffense: updatedUserObj.onOffense,
+                blackSide: updatedUserObj.blackSide,
+                yellowSide: updatedUserObj.yellowSide,
+                doubleMatches: updatedUserObj.doubleMatches,
+                singleMatches: updatedUserObj.singleMatches,
+                games: updatedUserObj.games
+            }
+        ); 
+    });
 
     res.redirect('/'+page+'/'+userID);
 });
