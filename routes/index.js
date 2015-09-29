@@ -245,15 +245,23 @@ router.get('/removegame/:page/:id/:gameindex', function(req, res) {
     var userID = req.params.id;
     var page = req.params.page;
     var gameindex = req.params.gameindex;
+    console.log(gameindex);
+    console.log('hey');
+    var gamesID = "games.0";
 
-    var games = 'games'+gameindex;
+    //ar games = 'games'+gameindex;
 
-    console.log(page, userID, gameindex);
+    console.log(page, userID, parseInt(gameindex,10));
+
+    var test = 'games.0';
 
     // Set our collection
     var collection = db.get('usercollection');
 
-    collection.update({'_id': ObjectId(userID)},{ $unset: {games: 1} });
+    if(gameindex === 0) console.log(0); collection.update({'_id': ObjectId(userID)},{ $unset: {'games.0' : 1} });
+    if(gameindex === 1) console.log(1); ///collection.update({'_id': ObjectId(userID)},{ $unset: {'games.1' : 1} });
+    if(gameindex === 2) console.log(2); ////.update({'_id': ObjectId(userID)},{ $unset: {'games.2' : 1} });
+
     collection.update({'_id': ObjectId(userID)},{ $pull: {'games': null} });  
 
     res.redirect('/'+page+'/'+userID);
