@@ -11,6 +11,7 @@ block content
 					th Last Name
 					th Email
 					th Date Joined
+					th Remove Player
 			tbody
 				each user, i in userlist
 					tr
@@ -20,6 +21,9 @@ block content
 						td
 							a(href='mailto:'+user.email+'?Subject=Want%20to%20Play%20a%20Foosball%20Game?')=user.email
 						td=user.joined
+						td
+							button.btn.btn-primary(type='button') 
+								a(href='/removeuser/userlist/'+user._id) Delete
 
 		button.btn.btn-primary(type='button') 
 			a(href='/newuser') Add New Player

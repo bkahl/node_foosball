@@ -12,27 +12,31 @@ block content
 					th SD
 					th PRTN
 					th W/L
-					th DP
 					th S
 					th OS
 					th O
+					th RG
 					
 			tbody
-				each game, i in player.games
-					tr
-						td=i+1
-						td=game.gameType
-						td=game.position
-						td=game.side
-						td=game.partner
-						if(game.win)
-							td W
-						else
-							td L
-						td=game.date
-						td=game.score
-						td=game.opponentScore
-						td=game.opponentNames
+				if(player.games)
+					each game, i in player.games
+						if(game !== null)
+							tr
+								td=i+1
+								td=game.gameType
+								td=game.position
+								td=game.side
+								td=game.partner
+								if(game.win)
+									td W
+								else
+									td L
+								td=game.score
+								td=game.opponentScore
+								td=game.opponentNames
+								td
+									button.btn.btn-primary(type='button') 
+										a(href='/removegame/player/'+userID+'/'+i) Delete
 
 		div.glossary
 			ul
@@ -54,19 +58,19 @@ block content
 					b W/L: 
 					span Win or Loss
 				li
-					b DP: 
-					span Date Played
-		div.glossary
-			ul
-				li
 					b S: 
 					span Score
+		div.glossary
+			ul
 				li
 					b OS: 
 					span Opponent Score
 				li
 					b O: 
 					span Opponents
+				li
+					b RG: 
+					span Remove Game
 
 		br
 

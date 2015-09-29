@@ -73,15 +73,16 @@ router.get('/standings', function(req, res) {
     });
 });
 
-router.get('/player/:name', function(req, res) {
-    var fullname = req.params.name;
+router.get('/player/:id', function(req, res) {
+    var userID = req.params.id;
     var db = req.db;
     var collection = db.get('usercollection');
 
-    collection.find( { _id : ObjectId(req.params.name) } ).on('success', function (player) { 
+    collection.find( { _id : ObjectId(userID) } ).on('success', function (player) { 
         res.render('player', { 
             title: player[0].fullname+' ('+player[0].wins+'-'+player[0].losses+')',
-            player: player[0]
+            player: player[0],
+            userID: userID
         });      
     });
 });
@@ -104,8 +105,8 @@ router.post('/newgame1v1', function(req, res) {
     var db = req.db;
 
     var players = [
-        {fullname: req.body.p1name, game: { gameType: 'Singles', position: '*', side: 'yellow', partner: '*', win: (parseInt(req.body.p1score,10) > parseInt(req.body.p2score,10)), loss: (parseInt(req.body.p1score,10) < parseInt(req.body.p2score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.p1score,10), opponentScore: parseInt(req.body.p2score,10), opponentNames: req.body.p2name } },
-        {fullname: req.body.p2name, game: { gameType: 'Singles', position: '*', side: 'black', partner: '*', win: (parseInt(req.body.p2score,10) > parseInt(req.body.p1score,10)), loss: (parseInt(req.body.p2score,10) < parseInt(req.body.p1score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.p2score,10), opponentScore: parseInt(req.body.p1score,10), opponentNames: req.body.p1name } }
+        {fullname: req.body.p1name, game: { gameType: 'Singles', position: '*', side: 'yellow', partner: '*', win: (parseInt(req.body.p1score,10) > parseInt(req.body.p2score,10)), loss: (parseInt(req.body.p1score,10) < parseInt(req.body.p2score,10)),  date: date, score: parseInt(req.body.p1score,10), opponentScore: parseInt(req.body.p2score,10), opponentNames: req.body.p2name } },
+        {fullname: req.body.p2name, game: { gameType: 'Singles', position: '*', side: 'black', partner: '*', win: (parseInt(req.body.p2score,10) > parseInt(req.body.p1score,10)), loss: (parseInt(req.body.p2score,10) < parseInt(req.body.p1score,10)),  date: date, score: parseInt(req.body.p2score,10), opponentScore: parseInt(req.body.p1score,10), opponentNames: req.body.p1name } }
     ];
 
     // Set our collection
@@ -132,7 +133,7 @@ router.post('/newgame1v1', function(req, res) {
         );   
     }
 
-    res.redirect("/");
+    res.redirect("/standings");
 });
 
 /* POST document Doubles new game */
@@ -142,10 +143,10 @@ router.post('/newgame2v2', function(req, res) {
     var db = req.db;
 
     var players = [
-        {fullname: req.body.p1name, game: { gameType: 'Doubles', position: 'defense', side: 'yellow', partner: req.body.p2name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
-        {fullname: req.body.p2name, game: { gameType: 'Doubles', position: 'offense', side: 'yellow', partner: req.body.p1name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
-        {fullname: req.body.p3name, game: { gameType: 'Doubles', position: 'defense', side: 'black', partner: req.body.p4name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } },
-        {fullname: req.body.p4name, game: { gameType: 'Doubles', position: 'offense', side: 'black', partner: req.body.p3name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: month+'/'+d+'/'+date.getFullYear()+', '+time, score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } }
+        {fullname: req.body.p1name, game: { gameType: 'Doubles', position: 'defense', side: 'yellow', partner: req.body.p2name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: date, score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
+        {fullname: req.body.p2name, game: { gameType: 'Doubles', position: 'offense', side: 'yellow', partner: req.body.p1name, win: (parseInt(req.body.team1score,10) > parseInt(req.body.team2score,10)), loss: (parseInt(req.body.team1score,10) < parseInt(req.body.team2score,10)),  date: date, score: parseInt(req.body.team1score,10), opponentScore: parseInt(req.body.team2score,10), opponentNames: [req.body.p3name, req.body.p4name] } },
+        {fullname: req.body.p3name, game: { gameType: 'Doubles', position: 'defense', side: 'black', partner: req.body.p4name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: date, score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } },
+        {fullname: req.body.p4name, game: { gameType: 'Doubles', position: 'offense', side: 'black', partner: req.body.p3name, win: (parseInt(req.body.team2score,10) > parseInt(req.body.team1score,10)), loss: (parseInt(req.body.team2score,10) < parseInt(req.body.team1score,10)),  date: date, score: parseInt(req.body.team2score,10), opponentScore: parseInt(req.body.team1score,10), opponentNames: [req.body.p1name, req.body.p2name] } }
     ];
 
     // Set our collection
@@ -174,7 +175,7 @@ router.post('/newgame2v2', function(req, res) {
         );   
     }
 
-    res.redirect("/");
+    res.redirect("/standings");
 });
 
 /* POST to Add User Service */
@@ -197,7 +198,7 @@ router.post('/adduser', function(req, res) {
         "fname" : userFirstName,
         "lname" : userLastName,
         "email" : userEmail,
-        "joined": month+'/'+d+'/'+date.getFullYear()+', '+time,
+        "joined": date,
         "goalsFor" : 0,
         "goalsAgainst" : 0,
         "wins" : 0,
@@ -219,6 +220,43 @@ router.post('/adduser', function(req, res) {
             res.redirect("userlist");
         }
     });
+});
+
+/* Remove User By ID */
+router.get('/removeuser/:page/:id', function(req, res) {
+    // Set our internal DB variable
+    var db = req.db;
+
+    var removeUserID = req.params.id;
+    var page = req.params.page;
+
+    // Set our collection
+    var collection = db.get('usercollection');
+
+    collection.remove({ _id : ObjectId(removeUserID) });  
+
+    res.redirect('/'+page);
+});
+
+router.get('/removegame/:page/:id/:gameindex', function(req, res) {
+    // Set our internal DB variable
+    var db = req.db;
+
+    var userID = req.params.id;
+    var page = req.params.page;
+    var gameindex = req.params.gameindex;
+
+    var games = 'games'+gameindex;
+
+    console.log(page, userID, gameindex);
+
+    // Set our collection
+    var collection = db.get('usercollection');
+
+    collection.update({'_id': ObjectId(userID)},{ $unset: {games: 1} });
+    collection.update({'_id': ObjectId(userID)},{ $pull: {'games': null} });  
+
+    res.redirect('/'+page+'/'+userID);
 });
 
 module.exports = router;
