@@ -22,8 +22,8 @@ block content
 							a(href='mailto:'+user.email+'?Subject=Want%20to%20Play%20a%20Foosball%20Game?')=user.email
 						td=user.joined
 						td
-							button.btn.btn-primary(type='button') 
-								a(href='/removeuser/userlist/'+user._id) Delete
+							button.btn.btn-danger(type='button') 
+								a(href='/removeuser/userlist/'+user._id) Delete Player
 
 		button.btn.btn-primary(type='button') 
 			a(href='/newuser') Add New Player
