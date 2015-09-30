@@ -27,7 +27,7 @@ block content
 						tr
 							td=i+1
 							td
-								if(user.games)
+								if(user.games.length > 0)
 									a(href='/player/'+user._id)=user.fullname
 								else
 									span=user.fullname
