@@ -90,7 +90,7 @@ router.get('/player/:id', function(req, res) {
     var collection = db.get('usercollection');
 
     collection.find( { _id : ObjectId(userID) } ).on('success', function (player) { 
-        console.log('player',player[0]);
+        //console.log('player',player[0]);
         res.render('player', { 
             title: player[0].fullname+' ('+player[0].wins+'-'+player[0].losses+')',
             player: player[0],
@@ -146,7 +146,7 @@ router.post('/newgame1v1', function(req, res) {
         );   
     }
 
-    console.log("unique game guid",guid());
+    //console.log("unique game guid",guid());
     res.redirect("/standings");
 });
 
@@ -375,11 +375,17 @@ router.get('/removegame/:page/:id/:gameindex', function(req, res) {
                        games: otherplayerGamesUpdated
                    }
                 );
+
+                //console.log('otherplayerGamesUpdated.length',otherplayerGamesUpdated.length);
+                //console.log('otherplayerGamesUpdated',otherplayerGamesUpdated);
+
+                //if(otherplayerGamesUpdated.length > 0) res.redirect('/'+page+'/'+userID);
+                //else res.redirect('/standings');
            });
        }
     });
 
-    res.redirect('/'+page+'/'+userID);
+    res.redirect('/standings');
 });
 
 module.exports = router;
