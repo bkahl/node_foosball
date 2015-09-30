@@ -20,7 +20,6 @@ block content
 					th BS
 					th GPonO
 					th GPonD
-					th RP
 					
 			tbody
 				each user, i in userlist
@@ -51,9 +50,6 @@ block content
 							td=user.blackSide
 							td=user.onOffense
 							td=user.onDefense
-							td
-								button.btn.btn-danger(type='button') 
-									a(href='/removeuser/standings/'+user._id) Delete Player
 		div.glossary
 			ul
 				li 
@@ -98,8 +94,3 @@ block content
 				li 
 					b DIFF: 
 					span Goal Differential
-		div.glossary
-			ul
-				li
-					b RP: 
-					span Remove Player
