@@ -27,7 +27,7 @@ block content
 						tr
 							td=i+1
 							td
-								if(user.games.length > 0)
+								if(user.games !== undefined && user.games.length > 0)
 									a(href='/player/'+user._id)=user.fullname
 								else
 									span=user.fullname
@@ -57,7 +57,7 @@ block content
 
 		br
 		br
-		
+
 		div.glossary
 			ul
 				li 
